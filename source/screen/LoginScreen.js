@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Button, Image} from "react-native";
+import { View, Button, Image,ToastAndroid} from "react-native";
 import { TextInput} from 'react-native-gesture-handler';
 import styles from '../styles/BaseStyles';
+import firebase from 'react-native-firebase';
+
 
 export default class LoginScreen extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            username:"",
-            password:""
+            email:"",
+            password:"",
+            errorMessage:""
           }
     }
 
@@ -22,9 +25,9 @@ export default class LoginScreen extends Component{
                 
                 <TextInput  
                   style={styles.inputText}
-                  placeholder="Username" 
+                  placeholder="Email" 
                   placeholderTextColor="#003f5c"
-                  onChangeText={text => this.setState({username:text})}/>
+                  onChangeText={text => this.setState({email:text})}/>
                 
                 <TextInput  
                   secureTextEntry
@@ -34,10 +37,20 @@ export default class LoginScreen extends Component{
                   onChangeText={text => this.setState({password:text})}/>        
                 
                 <View style={[{ width: "75%", margin: 15 }]}>
-                    <Button title="Login" color="#303B4A" STY />
+                    <Button title="Login" color="#303B4A" onPress={this.login.bind(this)} />
                 </View> 
 
             </View>
           );
+        }
+
+        //TODO : You should take email and password from textbox
+        login(){
+          firebase.auth().signInWithEmailAndPassword("denizcandemir@outlook.com","123456")
+          .then(user => console.log(user))
+          .catch(err => {
+            this.setState({errorMessage:err})
+            ToastAndroid.show(String(this.state.errorMessage), ToastAndroid.SHORT);
+          });
         }
       }   
