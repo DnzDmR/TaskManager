@@ -62,10 +62,10 @@ export default class HomeScreen extends Component{
                     <Divider />
                     <View style={styles.buttonGroup}>
                         <View style={styles.buttonGroupItem}>
-                            <Button title="Join Team"/>
+                            <Button title="Join Team" onPress={this.openJoinTeamScreen.bind(this)} />
                         </View>
                         <View style={styles.buttonGroupItem}>
-                            <Button title="Create Team"/>
+                            <Button title="Create Team" onPress={this.openCreateTeamScreen.bind(this)}/>
                         </View>
                     </View>
                 </Card>
@@ -86,6 +86,13 @@ export default class HomeScreen extends Component{
             </ScrollView>
 
         );
+    }
+
+    openCreateTeamScreen(){
+        this.props.navigation.navigate("CreateTeamScreen");
+    }
+    openJoinTeamScreen(){
+        this.props.navigation.navigate("JoinTeamScreen");
     }
 
 }

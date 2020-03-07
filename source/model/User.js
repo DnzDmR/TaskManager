@@ -5,18 +5,4 @@ export default class User{
         this.firstname=firstname,
         this.lastname=lastname
     }
-
-
-    getEmail(){
-        return this.email;
-    }
-
-    getFirstName(){
-        return this.firstname;
-    }
-
-    getLastName(){
-        return this.lastname;
-    }
-
 }
