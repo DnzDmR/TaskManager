@@ -29,5 +29,16 @@ export default StyleSheet.create({
         width:"75%",
               
     },
+    buttonGroup: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start' // if you want to fill rows left to right
+      },
+    buttonGroupItem: {
+    width: '50%', // is 50% of container width
+    padding:10
+    }
+
     
 });

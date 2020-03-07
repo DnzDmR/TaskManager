@@ -46,7 +46,7 @@ export default class LoginScreen extends Component{
 
         //TODO : You should take email and password from textbox
         login(){
-          firebase.auth().signInWithEmailAndPassword("denizcandemir@outlook.com","123456")
+          firebase.auth().signInWithEmailAndPassword("a@a.com","123456")
           .then(user => console.log(user))
           .catch(err => {
             this.setState({errorMessage:err})
