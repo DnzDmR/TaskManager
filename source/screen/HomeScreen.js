@@ -69,15 +69,8 @@ export default class HomeScreen extends Component{
         this.props.navigation.navigate("CreateTeamScreen");
     }
 
-    async openJoinTeamScreen(){
-        //this.props.navigation.navigate("JoinTeamScreen");         
-
-        //console.log();
-
-        
-
-        
-
+    openJoinTeamScreen(){
+        this.props.navigation.navigate("JoinTeamScreen");         
     }
 
     async componentDidMount(){

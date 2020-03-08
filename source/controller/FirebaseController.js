@@ -51,7 +51,7 @@ export default class FirebaseController {
 
     static createTeam(newTeam){
 
-        var teamAccessCode = this.uuidv4();
+        var teamCode = this.uuidv4();
 
         newTeam.teamLead = firebase.auth().currentUser.email;
         newTeam.teamCode = teamAccessCode;
@@ -63,7 +63,7 @@ export default class FirebaseController {
         .get().then(data => {
             data.forEach(element =>{
                 var team = element.data().teamList;
-                team.push({"teamCode":teamAccessCode})
+                team.push({"teamCode":teamCode})
                 element.ref.update({teamList:team})
             })
         })
@@ -76,6 +76,33 @@ export default class FirebaseController {
           var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
           return v.toString(16);
         });
-      }
+    }
+
+    static joinTeam(teamCode,teamPassword){
+
+        firebase.firestore().collection(BaseEnum.TEAM)
+        .where("teamCode","==",teamCode)
+        .get().then(data =>{
+
+            data.forEach(element =>{
+                
+                if(element.data().teamPassword == teamPassword){
+                    
+                    firebase.firestore().collection(BaseEnum.USER).where("email","==",firebase
+                    .auth().currentUser.email)
+                    .get().then(data => {
+                    data.forEach(element =>{
+                        var team = element.data().teamList;
+                        team.push({"teamCode":teamCode})
+                        element.ref.update({teamList:team})
+                        })
+                    })
+
+                }
+            })
+
+        })
+
+    }
 
 }
