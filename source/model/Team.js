@@ -2,13 +2,14 @@
 export default class Team {
 
 
-    constructor(teamName,teamPassword,teamSummary,teamPhoto,teamCreatorEmail){
+    constructor(teamName,teamPassword,teamSummary,teamPhoto,teamLead,teamCode){
 
-        this.teamName= teamName;
+        this.teamCode= teamCode;
         this.teamPassword=teamPassword;
+        this.teamName= teamName;
         this.teamSummary = teamSummary;
         this.teamPhoto = teamPhoto;
-        this.teamCreatorEmail = teamCreatorEmail;        
+        this.teamLead = teamLead;        
         
     }
 

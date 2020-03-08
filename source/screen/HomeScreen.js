@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {FlatList,View, ScrollView, Text, Image } from "react-native";
+import {View, ScrollView,} from "react-native";
 import {Card, Button, ListItem ,Divider} from 'react-native-elements';
 import styles from '../styles/BaseStyles';
 import firebase from 'react-native-firebase';
 import User from '../model/User';
-import {Dimensions,StyleSheet} from 'react-native';
+import FirebaseController from '../controller/FirebaseController';
+import BaseEnum from '../controller/BaseEnum';
 
 export default class HomeScreen extends Component{
 
@@ -12,40 +13,16 @@ export default class HomeScreen extends Component{
         super(props);
         this.state={
             user: new User(),
+            teamList : [],
         }
     }
     
 
     render(){    
-        const list = [
-            {
-              name: 'Amy Farha1',
-              avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-              subtitle: 'Vice President'
-            },
-            {
-                name: 'Amy Farha2',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Vice President'
-              },
-              {
-                name: 'Amy Farha3',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Vice President'
-              },
-              {
-                name: 'Amy Farha4',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                subtitle: 'Vice President'
-              },
-            {
-              name: 'Chris Jackson',
-              avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-              subtitle: 'Vice Chairman'
-            }]    
+          
         var self = this;
         const auth = firebase.auth().currentUser;
-        const user = firebase.firestore().collection("user")
+        firebase.firestore().collection(BaseEnum.USER)
         .where("email","==",auth.email).get()
         .then(data => {
             data.forEach(function(doc) {
@@ -71,12 +48,12 @@ export default class HomeScreen extends Component{
                 </Card>
                 <Card title="Team List">
                     
-                { list.map((l, i) => (
+                { this.state.teamList.map((l, i) => (
                     <ListItem
                         key={i}
                         leftAvatar={{ source: { uri: l.avatar_url } }}
-                        title={l.name}
-                        subtitle={l.subtitle}
+                        title={l.teamName}
+                        subtitle={"A Takımı"}
                         bottomDivider
                         chevron
                     />
@@ -91,8 +68,9 @@ export default class HomeScreen extends Component{
     openCreateTeamScreen(){
         this.props.navigation.navigate("CreateTeamScreen");
     }
+
     openJoinTeamScreen(){
-        this.props.navigation.navigate("JoinTeamScreen");
+        this.props.navigation.navigate("JoinTeamScreen");         
     }
 
 }

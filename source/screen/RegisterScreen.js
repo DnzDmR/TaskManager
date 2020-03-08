@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Button, Image,ToastAndroid} from "react-native";
+import { View, Button, Image} from "react-native";
 import { TextInput} from 'react-native-gesture-handler';
 import styles from '../styles/BaseStyles';
-import firebase from 'react-native-firebase';
-import User from '../model/User';
+import FirebaseController from '../controller/FirebaseController';
 
 export default class RegisterScreen extends Component{
 
@@ -14,15 +13,12 @@ export default class RegisterScreen extends Component{
             lastname:"",
             email:"",
             password:"",
-            errorMessage:""
           }
     }
 
 
     render(){
         
-        
-
         return(
             
             <View style={styles.container}>
@@ -64,15 +60,7 @@ export default class RegisterScreen extends Component{
 
     register(){
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
-        .then(data => {
-            var newUser = new User(this.state.email,this.state.firstname,this.state.lastname) ;
-            firebase.firestore().collection("user").add(newUser);
-        })
-        .catch(err => {
-            this.setState({errorMessage:err})
-            ToastAndroid.show(String(this.state.errorMessage), ToastAndroid.SHORT);
-        });
+        FirebaseController.createUser(this.state.email,this.state.password,this.state.firstname,this.state.lastname);
     }
 
 }

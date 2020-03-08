@@ -5,7 +5,8 @@ import styles from '../styles/BaseStyles';
 import firebase from 'react-native-firebase';
 import User from '../model/User';
 import Team from '../model/Team';
-import Member from '../model/Member';
+import FirebaseController from '../controller/FirebaseController';
+import BaseEnum from '../controller/BaseEnum';
 
 export default class CreateTeamScreen extends Component{
 
@@ -57,13 +58,9 @@ export default class CreateTeamScreen extends Component{
     }
 
     createTeam(){
-        
-        var newTeam = this.state.team;
-        newTeam.teamCreatorEmail = firebase.auth().currentUser.email;
-        firebase.firestore().collection("team").add(newTeam);
-
-        var joinTeam = new Member(newTeam.teamCreatorEmail,newTeam.teamName);
-        firebase.firestore().collection("member").add(joinTeam);
+    
+        FirebaseController.createTeam(this.state.team);
+        this.props.navigation.navigate("Home");
     }
 
 }
