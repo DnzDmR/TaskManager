@@ -1,7 +1,7 @@
 import firebase from 'react-native-firebase';
 import BaseEnum from './BaseEnum';
 import User from '../model/User';
-
+import {ToastAndroid} from "react-native";
 export default class FirebaseController {
 
  
@@ -19,11 +19,11 @@ export default class FirebaseController {
     }
 
     
-    static async getTeam(teamName){
+    static async getTeam(accessCode){
         
         var tempTeam;
 
-        await firebase.firestore().collection(BaseEnum.TEAM).where("teamName","==",teamName)
+        await firebase.firestore().collection(BaseEnum.TEAM).where("teamCode","==",accessCode)
         .get()  
         .then(data =>{
             data.forEach(element =>{

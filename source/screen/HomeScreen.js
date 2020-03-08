@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, ScrollView,} from "react-native";
+import {View, ScrollView} from "react-native";
 import {Card, Button, ListItem ,Divider} from 'react-native-elements';
 import styles from '../styles/BaseStyles';
 import firebase from 'react-native-firebase';
@@ -69,8 +69,37 @@ export default class HomeScreen extends Component{
         this.props.navigation.navigate("CreateTeamScreen");
     }
 
-    openJoinTeamScreen(){
-        this.props.navigation.navigate("JoinTeamScreen");         
+    async openJoinTeamScreen(){
+        //this.props.navigation.navigate("JoinTeamScreen");         
+
+        //console.log();
+
+        
+
+        
+
+    }
+
+    async componentDidMount(){
+
+        firebase.firestore().collection(BaseEnum.USER)
+        .where("email","==",firebase.auth().currentUser.email)
+        .onSnapshot((data) =>{
+            data.forEach(element =>{
+
+                element.data().teamList.map(async i =>{
+                    
+                    var temp = await FirebaseController.getTeam(i.teamCode);
+                    this.setState(prevState => ({
+                        teamList: [...prevState.teamList, temp]
+                    }))
+                })
+                
+                
+
+            })
+
+        })
     }
 
 }
