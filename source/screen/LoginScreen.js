@@ -11,8 +11,7 @@ export default class LoginScreen extends Component{
         super(props);
         this.state={
             email:"",
-            password:"",
-            errorMessage:""
+            password:""
           }
     }
 
@@ -44,13 +43,11 @@ export default class LoginScreen extends Component{
           );
         }
 
-        //TODO : You should take email and password from textbox
         login(){
-          firebase.auth().signInWithEmailAndPassword("a@a.com","123456")
+          firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
           .then(user => console.log(user))
           .catch(err => {
-            this.setState({errorMessage:err})
-            ToastAndroid.show(String(this.state.errorMessage), ToastAndroid.SHORT);
+            ToastAndroid.show(String(err), ToastAndroid.SHORT);
           });
         }
       }   

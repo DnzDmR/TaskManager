@@ -44,6 +44,7 @@ export default class JoinTeamScreen extends Component{
 
     joinTeam(){
         FirebaseController.joinTeam(this.state.teamCode,this.state.teamPassword);
+        this.props.navigation.navigate("Home");
     }
 
 }
