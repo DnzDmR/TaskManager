@@ -54,7 +54,7 @@ export default class FirebaseController {
         var teamCode = this.uuidv4();
 
         newTeam.teamLead = firebase.auth().currentUser.email;
-        newTeam.teamCode = teamAccessCode;
+        newTeam.teamCode = teamCode;
         firebase.firestore().collection(BaseEnum.TEAM).add(newTeam);
 
 

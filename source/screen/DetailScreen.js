@@ -1,20 +1,63 @@
 import React, { Component } from 'react';
 import { View, Text } from "react-native";
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import styles from '../styles/BaseStyles';
+import firebase from 'react-native-firebase';
+import BaseEnum from '../controller/BaseEnum';
+
+
 export default class DetailScreen extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            team:null,
+        }
+
+    }
 
     render(){
 
         return(
 
-            <View style={styles.container}>
-                <Card title="DetailScreen">                
-                    <Text>Excepteur quis sit magna quis minim est est consectetur incididunt non labore et. Ut aliquip velit ullamco eu minim consectetur pariatur sint ullamco labore elit eiusmod. Elit anim reprehenderit ut qui enim voluptate ut. Aute veniam veniam sunt laborum do Lorem pariatur ullamco ad est eiusmod ipsum. Tempor culpa occaecat cupidatat eu labore eu sit commodo do. Est aliqua et laborum et labore nostrud Lorem nulla. Do dolor velit nostrud voluptate aliquip ipsum irure commodo culpa quis sint cupidatat.</Text>
+            <View>
+                <Card title={this.state.team ? this.state.team.teamName : "degil"}>                
+                   <Text>Hello World</Text>
                 </Card>
             </View>
 
         );
     }
+
+
+  
+
+//TODO : Tasklar takım içerisinde yer alacak. KUllanıcının default bir taskı olacak
+//        Kullanıcı Detail seçtiğinde bu defaul olan açılacak
+    async componentDidMount(){   
+        this.update();
+    }
+
+    async componentDidUpdate(){
+        this.update();
+    }
+
+
+    async update(){
+
+        firebase.firestore().collection(BaseEnum.TEAM)
+        .where("teamCode","==",this.props.route.params.teamCode)
+        .get().then(data => {
+
+            data.forEach(async element =>{
+
+                this.setState({team:element.data()});
+                
+            })
+
+        })
+
+    }
+
+   
 
 }

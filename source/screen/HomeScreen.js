@@ -51,11 +51,12 @@ export default class HomeScreen extends Component{
                 { this.state.teamList.map((l, i) => (
                     <ListItem
                         key={i}
-                        leftAvatar={{ source: { uri: l.avatar_url } }}
+                        leftAvatar={{ source: { uri: l.teamPhoto } }}
                         title={l.teamName}
-                        subtitle={"A Takımı"}
+                        subtitle={l.teamSummary}
                         bottomDivider
                         chevron
+                        onPress={() => {this.selectedTeam(l.teamCode)}}
                     />
                 ))}
 
@@ -71,6 +72,10 @@ export default class HomeScreen extends Component{
 
     openJoinTeamScreen(){
         this.props.navigation.navigate("JoinTeamScreen");         
+    }
+
+    selectedTeam(code){
+        this.props.navigation.jumpTo('Detail', { teamCode: code });
     }
 
     async componentDidMount(){
