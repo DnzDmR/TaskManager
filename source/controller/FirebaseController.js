@@ -108,4 +108,8 @@ export default class FirebaseController {
         });
       });
   }
+
+  static createTask(newTask) {
+    firebase.firestore().collection(BaseEnum.TASK).add(newTask);
+  }
 }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import {Card} from 'react-native-elements';
+import {View, ScrollView} from 'react-native';
+import {Card, Button} from 'react-native-elements';
+import styles from '../styles/BaseStyles';
 import firebase from 'react-native-firebase';
 import BaseEnum from '../controller/BaseEnum';
 
@@ -14,11 +15,25 @@ export default class DetailScreen extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <Card title={this.state.team ? this.state.team.teamName : 'degil'}>
-          <Text>Hello World</Text>
+          <View style={styles.buttonGroup}>
+            <View style={styles.buttonGroupItem}>
+              <Button
+                title="Create Task"
+                onPress={this.openCreateTaskScreen.bind(this)}
+              />
+            </View>
+            <View style={styles.buttonGroupItem}>
+              <Button
+                title="Import Task"
+                onPress={this.openImportTaskScreen.bind(this)}
+              />
+            </View>
+          </View>
         </Card>
-      </View>
+        <Card title="Task List" />
+      </ScrollView>
     );
   }
 
@@ -44,4 +59,10 @@ export default class DetailScreen extends Component {
         });
       });
   }
+
+  openCreateTaskScreen() {
+    this.props.navigation.navigate('CreateTaskScreen',{"teamCode":this.props.route.params.teamCode});
+  }
+
+  openImportTaskScreen() {}
 }
