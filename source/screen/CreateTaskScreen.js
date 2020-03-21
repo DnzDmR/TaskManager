@@ -22,7 +22,7 @@ export default class CreateTaskScreen extends Component {
           placeholderTextColor="#003f5c"
           onChangeText={text =>
             this.setState(prevState => ({
-              team: {...prevState.task, taskSummary: text},
+              task: {...prevState.task, taskSummary: text},
             }))
           }
         />
@@ -33,7 +33,7 @@ export default class CreateTaskScreen extends Component {
           placeholderTextColor="#003f5c"
           onChangeText={text =>
             this.setState(prevState => ({
-              team: {...prevState.task, taskDescription: text},
+              task: {...prevState.task, taskDescription: text},
             }))
           }
         />
@@ -44,7 +44,7 @@ export default class CreateTaskScreen extends Component {
           placeholderTextColor="#003f5c"
           onChangeText={text =>
             this.setState(prevState => ({
-              team: {...prevState.task, taskDueDate: text},
+              task: {...prevState.task, taskDueDate: text},
             }))
           }
         />
@@ -55,7 +55,7 @@ export default class CreateTaskScreen extends Component {
           placeholderTextColor="#003f5c"
           onChangeText={text =>
             this.setState(prevState => ({
-              team: {...prevState.task, taskAssignee: text},
+              task: {...prevState.task, taskAssignee: text},
             }))
           }
         />
@@ -80,8 +80,8 @@ export default class CreateTaskScreen extends Component {
 
   createTask() {
     var newTask = this.state.task;
-    newTask.taskTeamCode = this.props.navigation.getParam('teamCode');
-    FirebaseController.newTask(newTask);
-    this.props.navigation.navigate('Home');
+    newTask.taskTeamCode = this.props.route.params.teamCode;
+    FirebaseController.createTask(newTask);
+    this.props.navigation.navigate('Detail', {teamCode: this.props.route.params.teamCode});
   }
 }

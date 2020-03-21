@@ -92,19 +92,34 @@ export default class HomeScreen extends Component {
   }
 
   async componentDidMount() {
+
+    this.props.navigation.addListener('blur', () => {
+      this.setState({teamList:[]})
+    });
+
+    this.props.navigation.addListener('focus', () => {
+      this.setState({teamList:[]})
+      this.subscribe();
+
+    });
+
+
+  }
+
+  subscribe(){
     firebase
-      .firestore()
-      .collection(BaseEnum.USER)
-      .where('email', '==', firebase.auth().currentUser.email)
-      .onSnapshot(data => {
-        data.forEach(element => {
-          element.data().teamList.map(async i => {
-            var temp = await FirebaseController.getTeam(i.teamCode);
-            this.setState(prevState => ({
-              teamList: [...prevState.teamList, temp],
-            }));
-          });
+    .firestore()
+    .collection(BaseEnum.USER)
+    .where('email', '==', firebase.auth().currentUser.email)
+    .onSnapshot(data => {
+      data.forEach(element => {
+        element.data().teamList.map(async i => {
+          var temp = await FirebaseController.getTeam(i.teamCode);
+          this.setState(prevState => ({
+            teamList: [...prevState.teamList, temp],
+          }));
         });
       });
+    });
   }
 }
