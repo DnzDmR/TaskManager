@@ -92,7 +92,6 @@ export default class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-
     this.props.navigation.addListener('blur', () => {
       this.setState({teamList:[]})
     });
@@ -100,7 +99,6 @@ export default class HomeScreen extends Component {
     this.props.navigation.addListener('focus', () => {
       this.setState({teamList:[]})
       this.subscribe();
-
     });
 
 

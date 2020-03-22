@@ -10,6 +10,7 @@ import DetailScreen from './source/screen/DetailScreen';
 import JoinTeamScreen from './source/screen/JoinTeamScreen';
 import CreateTeamScreen from './source/screen/CreateTeamScreen';
 import CreateTaskScreen from './source/screen/CreateTaskScreen';
+import TaskDetailScreen from './source/screen/TaskDetailScreen';
 import firebase from 'react-native-firebase';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -34,6 +35,7 @@ export default class App extends Component {
           <Stack.Screen name="JoinTeamScreen" component={JoinTeamScreen} />
           <Stack.Screen name="CreateTeamScreen" component={CreateTeamScreen} />
           <Stack.Screen name="CreateTaskScreen" component={CreateTaskScreen} />
+          <Stack.Screen name="TaskDetailScreen" component={TaskDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -4,6 +4,7 @@ import {TextInput} from 'react-native-gesture-handler';
 import styles from '../styles/BaseStyles';
 import FirebaseController from '../controller/FirebaseController';
 import Task from '../model/Task';
+import firebase from 'react-native-firebase';
 
 export default class CreateTaskScreen extends Component {
   constructor(props) {
@@ -81,6 +82,8 @@ export default class CreateTaskScreen extends Component {
   createTask() {
     var newTask = this.state.task;
     newTask.taskTeamCode = this.props.route.params.teamCode;
+    newTask.taskStatus = "TODO";
+    newTask.taskCreatorBy = firebase.auth().currentUser.
     FirebaseController.createTask(newTask);
     this.props.navigation.navigate('Detail', {teamCode: this.props.route.params.teamCode});
   }

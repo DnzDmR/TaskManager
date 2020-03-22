@@ -1,5 +1,6 @@
 export default class Task {
   constructor(
+    taskCode,
     taskSummary,
     taskDescription,
     taskCreatorBy,
@@ -8,6 +9,7 @@ export default class Task {
     taskStatus,
     taskDueDate,
   ) {
+    this.taskCode = taskCode;
     this.taskSummary = taskSummary;
     this.taskDescription = taskDescription;
     this.taskCreatorBy = taskCreatorBy;

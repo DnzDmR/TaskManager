@@ -110,6 +110,7 @@ export default class FirebaseController {
   }
 
   static createTask(newTask) {
+    newTask.taskCode = this.uuidv4();
     firebase.firestore().collection(BaseEnum.TASK).add(newTask);
   }
 }

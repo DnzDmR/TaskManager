@@ -45,7 +45,9 @@ export default class DetailScreen extends Component {
               subtitle={l.taskDescription}
               bottomDivider
               chevron
-            
+              onPress={() => {
+                this.selectedTask(l);
+              }}
             />
           ))}
         </Card>
@@ -60,21 +62,18 @@ export default class DetailScreen extends Component {
   imageTest(status){
     
     switch(status) {
-      case "todo":
+      case "TODO":
         return require('../images/todo.png')
         break;
-      case "pass":
-        return require('../images/pass.png')
+      case "DONE":
+        return require('../images/done.png')
         break;
-      case "fail":
-        return require('../images/fail.png')
+      case "CANCELED":
+        return require('../images/canceled.png')
         break;
-      case "executing":
-        return require('../images/executing.png')
+      case "ACTIVE":
+        return require('../images/active.png')
         break;
-      case "executing":
-          return require('../images/executing.png')
-          break;
       default:
         return require('../images/todo.png')
     }
@@ -133,4 +132,8 @@ export default class DetailScreen extends Component {
   }
 
   openImportTaskScreen() {}
+
+  selectedTask(selectedTask){
+    this.props.navigation.navigate('TaskDetailScreen',{"task":selectedTask});
+  }
 }
