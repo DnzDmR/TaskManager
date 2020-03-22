@@ -83,7 +83,7 @@ export default class CreateTaskScreen extends Component {
     var newTask = this.state.task;
     newTask.taskTeamCode = this.props.route.params.teamCode;
     newTask.taskStatus = "TODO";
-    newTask.taskCreatorBy = firebase.auth().currentUser.
+    newTask.taskCreatorBy = firebase.auth().currentUser.email;
     FirebaseController.createTask(newTask);
     this.props.navigation.navigate('Detail', {teamCode: this.props.route.params.teamCode});
   }
